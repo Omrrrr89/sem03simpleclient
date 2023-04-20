@@ -4,10 +4,11 @@ import (
 	"net"
 	"log"
 	"os"
+        "github.com/Omrrrr89/is105sem03/mycrypt"
 )
 
 func main() {
-	conn, err := net.Dial("tcp", "127.0.0.1:")
+	conn, err := net.Dial("tcp", "172.17.0.3:8080")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -25,4 +26,11 @@ func main() {
 	} 
 	response := string(buf[:n])
 	log.Printf("reply from proxy: %s", response)
+
+
+
+
+kryptertMelding := mycrypt.Krypter([]rune(os.Args[1]), mycrypt.ALF_SEM03, 4)
+log.Println("Kryptert melding: ", string(kryptertMelding))
+_, err = conn.Write([]byte(string(kryptertMelding)))
 }
